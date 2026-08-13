@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        # `npm ci` requires a committed package-lock.json. The lockfile cannot be
+        # generated in the authoring environment (blocked registry), so the first
+        # Codespaces run should commit one and this can become `npm ci`.
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+  # Guards the two invariants that are easy to break silently and
+  # expensive to discover late.
+  guardrails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: No hardcoded providers outside packages/providers
+        run: |
+          if grep -rInE 'api\.(openai|anthropic|voyageai)\.com' \
+               --include='*.ts' packages \
+               | grep -v '^packages/providers/'; then
+            echo "::error::Provider endpoints must live in packages/providers only."
+            exit 1
+          fi
+
+      - name: No committed secrets
+        run: |
+          if grep -rInE '(sk-[A-Za-z0-9]{20,}|mongodb\+srv://[^<]*:[^<@]+@)' \
+               --include='*.ts' --include='*.json' --include='*.md' . \
+               | grep -v 'README' | grep -v 'fixtures/'; then
+            echo "::error::Possible secret committed."
+            exit 1
+          fi

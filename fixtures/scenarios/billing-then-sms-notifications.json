@@ -1,0 +1,29 @@
+{
+  "id": "billing-then-sms-notifications",
+  "description": "Topic A is pure billing noise for topic B. The only useful context for topic B is pre-existing shared delivery infrastructure.",
+  "topic_a": {
+    "name": "Billing reconciliation",
+    "turns": [
+      {
+        "user": "Reconcile failed subscription renewals.",
+        "assistant": "Subscription totals are stored in cents as integers, and the reconciliation job groups by invoice_id."
+      },
+      {
+        "user": "What retry marker should I inspect?",
+        "assistant": "The billing retry marker is renewal_attempt_id."
+      }
+    ],
+    "expected_facts": [
+      "Subscription totals are stored in cents as integers",
+      "Billing retries are grouped by renewal_attempt_id"
+    ]
+  },
+  "topic_b": {
+    "name": "SMS notifications",
+    "question": "Design reliable SMS delivery for password reset codes.",
+    "expected_answer_contains": ["reliable retry", "dedupe sends", "SMS provider"],
+    "contamination_markers": ["cents", "invoice_id", "renewal_attempt_id", "subscription"],
+    "retention_markers": ["dead-letter queue", "idempotency key"]
+  },
+  "notes": "This should be an easy low-contamination case for trunk because billing terms are unrelated to SMS delivery."
+}

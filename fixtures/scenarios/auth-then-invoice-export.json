@@ -1,0 +1,29 @@
+{
+  "id": "auth-then-invoice-export",
+  "description": "Topic A mixes a durable tenant/audit constraint with UI implementation noise. Topic B should keep the tenant and audit facts without inheriting admin UI details.",
+  "topic_a": {
+    "name": "Admin authentication cleanup",
+    "turns": [
+      {
+        "user": "Clean up the admin authentication flow.",
+        "assistant": "Remember that every admin action must include tenant_id in the audit log."
+      },
+      {
+        "user": "Anything else from the admin UI?",
+        "assistant": "The legacy admin UI uses cobalt-blue CSS tokens, but that is only relevant to the UI cleanup."
+      }
+    ],
+    "expected_facts": [
+      "Every admin action must include tenant_id in the audit log",
+      "The legacy admin UI uses cobalt-blue CSS tokens"
+    ]
+  },
+  "topic_b": {
+    "name": "Invoice export worker",
+    "question": "Design an invoice export worker with compliance-safe logging.",
+    "expected_answer_contains": ["tenant-aware exports", "compliance logging", "background worker"],
+    "contamination_markers": ["cobalt-blue", "CSS tokens", "admin UI"],
+    "retention_markers": ["tenant_id", "audit log"]
+  },
+  "notes": "A genuinely relevant fact from topic A should be retained, while topic-A UI styling should be filtered out."
+}

@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Blocks two mistakes that are cheap to prevent and expensive to undo:
+#   1. committing with the placeholder (or a corporate) identity
+#   2. committing anything that looks like a secret
+#
+# Enable with:  git config core.hooksPath .githooks
+
+email=$(git config user.email)
+name=$(git config user.name)
+
+if [ -z "$email" ] || [ -z "$name" ]; then
+  echo "pre-commit: git user.name / user.email are not set."
+  echo "Fill in ../.gitconfig-personal with your PERSONAL details."
+  exit 1
+fi
+
+case "$email" in
+  REPLACE_WITH_*|*example.com)
+    echo "pre-commit: identity is still a placeholder ($email)."
+    echo "Edit ../.gitconfig-personal with your personal name and email."
+    echo "Attribution is painful to rewrite after the fact."
+    exit 1
+    ;;
+  *@microsoft.com)
+    echo "pre-commit: refusing to commit as a corporate identity ($email)."
+    echo "This is a personal, public, MIT-licensed project."
+    echo "Check the includeIf in your global ~/.gitconfig."
+    exit 1
+    ;;
+esac
+
+# Scan staged content only - catches secrets before they enter history.
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+if [ -n "$staged" ]; then
+  if git diff --cached -U0 -- $staged \
+       | grep -nE '^\+.*(sk-[A-Za-z0-9]{20,}|mongodb\+srv://[^<[:space:]]*:[^<@[:space:]]+@|AKIA[0-9A-Z]{16})' \
+       >/dev/null 2>&1; then
+    echo "pre-commit: a staged change looks like a secret (API key or connection string)."
+    echo "Secrets belong in mongodb-hackathon/secrets/.env, outside this repo."
+    exit 1
+  fi
+fi
+
+exit 0

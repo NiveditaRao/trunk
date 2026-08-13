@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/providers" },
+    { "path": "packages/memory" },
+    { "path": "packages/render" },
+    { "path": "packages/server" },
+    { "path": "packages/eval" },
+    { "path": "packages/web" }
+  ]
+}

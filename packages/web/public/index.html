@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trunk — chats fork, memory doesn't</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">MongoDB Persistent Context Sprint</p>
+      <h1>Chats fork. <span>Memory doesn't.</span></h1>
+    </div>
+    <p class="thesis"><strong>Facts</strong> enter the shared trunk. <strong>Hypotheses</strong> stay trapped in their branch.</p>
+  </header>
+
+  <main id="viz" class="viz" aria-live="polite">
+    <svg id="provenance" class="provenance" aria-hidden="true"></svg>
+
+    <section class="graph-panel" aria-labelledby="graph-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">C1 branch graph</p>
+          <h2 id="graph-title">Conversation lanes</h2>
+        </div>
+        <div id="laneLegend" class="lane-legend"></div>
+      </div>
+      <div id="graph" class="graph-stage"><p class="empty">Loading checkpoint DAG…</p></div>
+    </section>
+
+    <section class="pool-panel" aria-labelledby="pool-title">
+      <div class="section-heading pool-heading">
+        <div>
+          <p class="eyebrow">C2/C3 memory pool — the hero</p>
+          <h2 id="pool-title">Shared trunk vs branch-local hypotheses</h2>
+        </div>
+        <p class="legend-copy">Hover a memory to light up its origin. The Redis fact is born in rate-limiter and reused from main.</p>
+      </div>
+      <div id="memories" class="memory-grid"><p class="empty">Loading memories…</p></div>
+    </section>
+
+    <aside id="branchDialog" class="branch-dialog" aria-live="assertive" hidden>
+      <button id="closeBranch" class="close-button" type="button" aria-label="Close branch details">×</button>
+      <p class="eyebrow">C5 click-to-branch</p>
+      <h2>Resume this fork</h2>
+      <p id="branchMessage" class="branch-message"></p>
+      <pre id="resumeCommand" class="resume-command"></pre>
+      <button id="copyResume" class="copy-button" type="button">Copy command</button>
+    </aside>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

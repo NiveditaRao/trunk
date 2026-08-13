@@ -1,0 +1,36 @@
+{
+  "id": "checkout-then-ratelimit",
+  "description": "The canonical two-topic scenario. Topic A establishes durable facts about the codebase; topic B is unrelated and must not inherit topic A's constraints, while still benefiting from the shared facts.",
+  "topic_a": {
+    "name": "Checkout 500 debugging",
+    "turns": [
+      {
+        "user": "We're getting intermittent 500s on POST /checkout. Where should I look?",
+        "assistant": "Start with the pricing path. Note that prices are stored in cents as integers, never floats, so any float arithmetic there is suspect."
+      },
+      {
+        "user": "Found it, there's a float multiply. What's the column called?",
+        "assistant": "It'll be snake_case — the schema uses snake_case column names throughout. Look for unit_price_cents."
+      }
+    ],
+    "expected_facts": [
+      "Prices are stored in cents as integers, never as floats",
+      "The database schema uses snake_case column names throughout"
+    ]
+  },
+  "topic_b": {
+    "name": "Rate limiter redesign",
+    "question": "Design a rate limiter for our public API. What algorithm and what storage?",
+    "expected_answer_contains": ["token bucket", "Redis"],
+    "contamination_markers": [
+      "cents",
+      "snake_case",
+      "checkout",
+      "unit_price",
+      "rounding",
+      "500 error"
+    ],
+    "retention_markers": ["Redis 7", "cluster mode"]
+  },
+  "notes": "contamination_markers are topic-A specifics that have no business appearing in a rate limiter design. retention_markers are shared facts that SHOULD survive the fork. A good result is low contamination AND high retention; the unforked condition typically wins retention but loses contamination, and the naive fresh session does the reverse."
+}

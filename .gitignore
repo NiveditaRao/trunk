@@ -1,0 +1,26 @@
+node_modules/
+
+dist/
+*.tsbuildinfo
+
+# Secrets — never commit. Real secrets live outside this repo entirely,
+# in mongodb-hackathon/secrets/.env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local config
+.trunk/
+config.local.json
+
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+coverage/
+
+scratch/
+*.log

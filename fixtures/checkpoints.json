@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "cp_001",
+    "branch_id": "br_main",
+    "parent_id": null,
+    "label": null,
+    "summary": "Started investigating intermittent 500s on POST /checkout",
+    "ts": "2026-08-13T18:02:00.000Z"
+  },
+  {
+    "_id": "cp_002",
+    "branch_id": "br_main",
+    "parent_id": "cp_001",
+    "label": null,
+    "summary": "Traced the error to a rounding bug; prices are stored in cents as integers",
+    "ts": "2026-08-13T18:09:00.000Z"
+  },
+  {
+    "_id": "cp_003",
+    "branch_id": "br_main",
+    "parent_id": "cp_002",
+    "label": "before fork",
+    "summary": "Confirmed the schema uses snake_case throughout",
+    "ts": "2026-08-13T18:20:00.000Z"
+  },
+  {
+    "_id": "cp_005",
+    "branch_id": "br_ratelimit",
+    "parent_id": "cp_003",
+    "label": null,
+    "summary": "Sketched a token bucket design for the rate limiter",
+    "ts": "2026-08-13T18:25:00.000Z"
+  },
+  {
+    "_id": "cp_006",
+    "branch_id": "br_ratelimit",
+    "parent_id": "cp_005",
+    "label": null,
+    "summary": "Settled on Redis 7 cluster mode as the counter store",
+    "ts": "2026-08-13T18:34:00.000Z"
+  },
+  {
+    "_id": "cp_004",
+    "branch_id": "br_main",
+    "parent_id": "cp_003",
+    "label": null,
+    "summary": "Back on checkout: applied the integer-cents rounding fix",
+    "ts": "2026-08-13T18:41:00.000Z"
+  },
+  {
+    "_id": "cp_007",
+    "branch_id": "br_main",
+    "parent_id": "cp_004",
+    "label": "money shot",
+    "summary": "Chose Redis for the idempotency key store, recalling Redis 7 cluster mode from the trunk without being told again",
+    "ts": "2026-08-13T18:48:00.000Z"
+  }
+]

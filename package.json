@@ -1,0 +1,27 @@
+{
+  "name": "trunk",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "workspaces": [
+    "packages/core",
+    "packages/providers",
+    "packages/memory",
+    "packages/server",
+    "packages/render",
+    "packages/eval",
+    "packages/web"
+  ],
+  "scripts": {
+    "typecheck": "tsc --build",
+    "test": "node --test \"packages/*/src/**/*.test.ts\" \"packages/*/test/**/*.test.js\"",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "dev": "npm run dev --workspace trunk-mcp"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

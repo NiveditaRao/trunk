@@ -1,0 +1,74 @@
+[
+  {
+    "_id": "mem_001",
+    "text": "Prices are stored in cents as integers, never as floats",
+    "embedding": [],
+    "tags": ["schema", "pricing"],
+    "kind": "fact",
+    "scope": "trunk",
+    "source_checkpoint": "cp_002",
+    "confidence": 0.95,
+    "valid_from": "2026-08-13T18:09:00.000Z",
+    "superseded_by": null
+  },
+  {
+    "_id": "mem_002",
+    "text": "The database schema uses snake_case column names throughout",
+    "embedding": [],
+    "tags": ["schema", "conventions"],
+    "kind": "fact",
+    "scope": "trunk",
+    "source_checkpoint": "cp_003",
+    "confidence": 0.92,
+    "valid_from": "2026-08-13T18:20:00.000Z",
+    "superseded_by": null
+  },
+  {
+    "_id": "mem_000",
+    "text": "Prices appear to be stored as floating point dollars",
+    "embedding": [],
+    "tags": ["schema", "pricing"],
+    "kind": "fact",
+    "scope": "trunk",
+    "source_checkpoint": "cp_001",
+    "confidence": 0.4,
+    "valid_from": "2026-08-13T18:02:00.000Z",
+    "superseded_by": "mem_001"
+  },
+  {
+    "_id": "mem_003",
+    "text": "Try a token bucket with a 100 req/min ceiling per API key",
+    "embedding": [],
+    "tags": ["rate-limiting", "design"],
+    "kind": "hypothesis",
+    "scope": "br_ratelimit",
+    "source_checkpoint": "cp_005",
+    "confidence": 0.6,
+    "valid_from": "2026-08-13T18:25:00.000Z",
+    "superseded_by": null
+  },
+  {
+    "_id": "mem_004",
+    "text": "The deployed cache is Redis 7 running in cluster mode",
+    "embedding": [],
+    "tags": ["infrastructure", "redis"],
+    "kind": "fact",
+    "scope": "trunk",
+    "source_checkpoint": "cp_006",
+    "confidence": 0.97,
+    "valid_from": "2026-08-13T18:34:00.000Z",
+    "superseded_by": null
+  },
+  {
+    "_id": "mem_005",
+    "text": "Assume for now that checkout will migrate to the new pricing service",
+    "embedding": [],
+    "tags": ["checkout", "speculative"],
+    "kind": "hypothesis",
+    "scope": "br_main",
+    "source_checkpoint": "cp_004",
+    "confidence": 0.5,
+    "valid_from": "2026-08-13T18:41:00.000Z",
+    "superseded_by": null
+  }
+]

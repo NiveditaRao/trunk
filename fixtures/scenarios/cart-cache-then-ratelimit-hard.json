@@ -1,0 +1,29 @@
+{
+  "id": "cart-cache-then-ratelimit-hard",
+  "description": "A hard case: topic A and topic B both mention Redis. Retrieval may pull irrelevant cart-cache details into a rate-limit answer.",
+  "topic_a": {
+    "name": "Cart cache investigation",
+    "turns": [
+      {
+        "user": "Why are cart reads slow?",
+        "assistant": "Cart cache entries are stored in Redis with keys prefixed checkout:cart."
+      },
+      {
+        "user": "What TTL do they use?",
+        "assistant": "The cart cache TTL is 15 minutes."
+      }
+    ],
+    "expected_facts": [
+      "Cart cache entries are stored in Redis with keys prefixed checkout:cart",
+      "The cart cache TTL is 15 minutes"
+    ]
+  },
+  "topic_b": {
+    "name": "Rate limiter redesign with Redis",
+    "question": "Design a Redis-backed rate limiter for the public API.",
+    "expected_answer_contains": ["token bucket", "Redis"],
+    "contamination_markers": ["checkout:cart", "cart cache", "15 minutes"],
+    "retention_markers": ["Redis 7", "cluster mode"]
+  },
+  "notes": "This is intentionally ambiguous because the retrieval query and the irrelevant topic-A memories share Redis vocabulary."
+}

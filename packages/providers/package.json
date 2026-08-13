@@ -1,0 +1,18 @@
+{
+  "name": "@trunk/providers",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "trunk": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "test": "node --test src/helpers.test.ts"
+  },
+  "dependencies": {
+    "@trunk/core": "*", "@clack/prompts": "^0.9.0", "commander": "^12.1.0"
+  }
+}
