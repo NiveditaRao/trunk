@@ -216,19 +216,19 @@ function renderMemoryCard(memory, streamIn = false) {
 }
 
 function bindMemoryCards(root) {
-  root.querySelectorAll(".memory-card").forEach((card) => {
-    if (card.dataset.bound === "true") return;
+  for (const card of root.querySelectorAll(".memory-card")) {
+    if (card.dataset.bound === "true") continue;
     card.dataset.bound = "true";
     card.addEventListener("mouseenter", () => setActiveMemory(card.dataset.memoryId));
     card.addEventListener("focus", () => setActiveMemory(card.dataset.memoryId));
     card.addEventListener("mouseleave", () => setActiveMemory(null));
     card.addEventListener("blur", () => setActiveMemory(null));
-  });
+  }
 }
 
 function bindCheckpointActions(root) {
-  root.querySelectorAll(".checkpoint.branchable").forEach((node) => {
-    if (node.dataset.bound === "true") return;
+  for (const node of root.querySelectorAll(".checkpoint.branchable")) {
+    if (node.dataset.bound === "true") continue;
     node.dataset.bound = "true";
     node.addEventListener("click", () => createBranchFromCheckpoint(node.dataset.checkpointId));
     node.addEventListener("keydown", (event) => {
@@ -237,7 +237,7 @@ function bindCheckpointActions(root) {
         createBranchFromCheckpoint(node.dataset.checkpointId);
       }
     });
-  });
+  }
 }
 
 function connectStream() {
@@ -434,7 +434,9 @@ function socketUrl(path) {
 
 function setActiveMemory(memoryId) {
   state.activeMemory = memoryId;
-  document.querySelectorAll(".memory-card, .checkpoint").forEach((el) => el.classList.remove("active", "use-active"));
+  for (const el of document.querySelectorAll(".memory-card, .checkpoint")) {
+    el.classList.remove("active", "use-active");
+  }
   if (memoryId) {
     const card = document.querySelector(`[data-memory-id="${cssEscape(memoryId)}"]`);
     card?.classList.add("active");
@@ -458,15 +460,15 @@ function drawProvenanceLines() {
   overlayEl.setAttribute("height", String(vizRect.height));
 
   const paths = [];
-  document.querySelectorAll(".memory-card").forEach((card) => {
+  for (const card of document.querySelectorAll(".memory-card")) {
     const source = document.querySelector(`[data-checkpoint-id="${cssEscape(card.dataset.sourceCheckpoint)}"]`);
-    if (!source) return;
+    if (!source) continue;
     paths.push(lineFor(card, source, "origin-line", card.dataset.memoryId));
     for (const id of (card.dataset.useCheckpoints ?? "").split(" ").filter(Boolean)) {
       const use = document.querySelector(`[data-checkpoint-id="${cssEscape(id)}"]`);
       if (use) paths.push(lineFor(card, use, "use-line", card.dataset.memoryId));
     }
-  });
+  }
   overlayEl.innerHTML = paths.join("");
 }
 

@@ -64,8 +64,7 @@ export function loadConfig(opts: LoadConfigOptions = {}): TrunkConfig {
   );
   if (!mongodbUri) {
     throw new Error(
-      "No MongoDB connection string. Set TRUNK_MONGODB_URI, pass --mongodb-uri, " +
-        `or run \`trunk init\` to write ${CONFIG_PATH}.`,
+      `No MongoDB connection string. Set TRUNK_MONGODB_URI, pass --mongodb-uri, or run \`trunk init\` to write ${CONFIG_PATH}.`,
     );
   }
 

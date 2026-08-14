@@ -46,12 +46,12 @@ export async function connect(config: TrunkConfig): Promise<TrunkDb> {
 export class ProviderMismatchError extends Error {
   constructor(stored: string, storedDims: number, configured: string) {
     super(
-      `Embedding provider mismatch.\n` +
-        `  Index built with: ${stored} (${storedDims}d)\n` +
-        `  Configured now:   ${configured}\n\n` +
-        `Vectors from different models occupy different semantic spaces, so ` +
-        `comparing them produces silently wrong recall.\n` +
-        `Run \`trunk init --reembed\` to rebuild, or restore the previous provider.`,
+      `Embedding provider mismatch.
+  Index built with: ${stored} (${storedDims}d)
+  Configured now:   ${configured}
+
+Vectors from different models occupy different semantic spaces, so comparing them produces silently wrong recall.
+Run \`trunk init --reembed\` to rebuild, or restore the previous provider.`,
     );
     this.name = "ProviderMismatchError";
   }

@@ -34,8 +34,7 @@ export function requireKnownEmbeddingDims(provider: string, model: string): numb
   const dims = knownEmbeddingDims(provider, model);
   if (dims === undefined) {
     throw new Error(
-      `Unknown embedding dimensions for ${provider}:${model}. Use a known model ` +
-        "or add its dimensions before running trunk init, because Atlas vector indexes are fixed-width.",
+      `Unknown embedding dimensions for ${provider}:${model}. Use a known model or add its dimensions before running trunk init, because Atlas vector indexes are fixed-width.`,
     );
   }
   return dims;
