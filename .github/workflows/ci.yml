@@ -13,8 +13,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
+          # Node 24 runs TypeScript natively, which is what lets `node --test`
+          # execute .ts test files without a build step or extra flags.
+          node-version: 24
+          # No `cache: npm` — that requires a committed lockfile, and none
+          # exists yet. Add it back once package-lock.json is committed.
 
       - name: Install
         # `npm ci` requires a committed package-lock.json. The lockfile cannot be
