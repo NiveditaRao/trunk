@@ -9,6 +9,7 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@trunk/core": "*", "@trunk/providers": "*"
+    "@trunk/core": "*",
+    "@trunk/providers": "*"
   }
 }

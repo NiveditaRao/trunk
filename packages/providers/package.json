@@ -13,6 +13,8 @@
     "test": "node --test src/helpers.test.ts"
   },
   "dependencies": {
-    "@trunk/core": "*", "@clack/prompts": "^0.9.0", "commander": "^12.1.0"
+    "@trunk/core": "*",
+    "@clack/prompts": "^0.9.0",
+    "commander": "^12.1.0"
   }
 }

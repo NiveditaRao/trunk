@@ -2,7 +2,9 @@
   "name": "trunk",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "workspaces": [
     "packages/core",
     "packages/providers",

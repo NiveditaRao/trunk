@@ -9,6 +9,7 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@trunk/core": "*", "@trunk/memory": "*"
+    "@trunk/core": "*",
+    "@trunk/memory": "*"
   }
 }
