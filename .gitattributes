@@ -1,0 +1,9 @@
+# Normalise line endings so a Windows checkout doesn't produce whitespace churn
+# or spurious formatter diffs in CI.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.mp4 binary

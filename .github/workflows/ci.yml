@@ -28,6 +28,14 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Formatting is advisory for now. The repo was authored on a machine where
+      # the npm registry is blocked by policy, so Biome could never be run there
+      # to normalise whitespace. Run `npm run format` once in a full environment
+      # and then make this blocking.
+      - name: Format check (advisory)
+        run: npm run format:check
+        continue-on-error: true
+
       - name: Typecheck
         run: npm run typecheck
 

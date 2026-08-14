@@ -17,7 +17,8 @@
   "scripts": {
     "typecheck": "tsc --build",
     "test": "node --test \"packages/*/src/**/*.test.ts\" \"packages/*/test/**/*.test.js\"",
-    "lint": "biome check .",
+    "lint": "biome lint .",
+    "format:check": "biome format .",
     "format": "biome check --write .",
     "dev": "npm run dev --workspace trunk-mcp"
   },
